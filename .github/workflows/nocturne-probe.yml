@@ -126,13 +126,13 @@ jobs:
           from_artifact: true
           save_artifact: false
       - name: Package without signing
-        working-directory: C:\helium-windows
+        working-directory: D:\helium-windows
         run: python package.py
       - uses: actions/upload-artifact@v4
         with:
           name: nocturne-probe-unsigned
           path: |
-            C:\helium-windows\build\*.exe
-            C:\helium-windows\build\*.zip
+            D:\helium-windows\build\*.exe
+            D:\helium-windows\build\*.zip
           if-no-files-found: error
           retention-days: 4
