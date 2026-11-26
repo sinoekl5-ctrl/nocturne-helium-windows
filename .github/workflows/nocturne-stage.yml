@@ -1,0 +1,31 @@
+name: nocturne-build-stage
+on:
+  workflow_call:
+    inputs:
+      from-artifact:
+        required: true
+        type: boolean
+    outputs:
+      finished:
+        value: ${{ jobs.build.outputs.finished }}
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2025
+    outputs:
+      finished: ${{ steps.stage.outputs.finished }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: ./.github/actions/prepare-environment
+      - uses: ./.github/actions/stage
+        id: stage
+        with:
+          from_artifact: ${{ inputs.from-artifact }}
+          package_here: false
+      - name: Report free disk space
+        if: always()
+        shell: pwsh
+        run: Get-PSDrive -PSProvider FileSystem | Format-Table Name, Used, Free
