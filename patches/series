@@ -29,3 +29,4 @@ helium/windows/updater/build-wiring.patch
 helium/windows/updater/register.patch
 helium/windows/updater/helper.patch
 helium/windows/updater/update-notifications.patch
+nocturne/colors.patch
